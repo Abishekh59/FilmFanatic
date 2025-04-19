@@ -139,7 +139,7 @@
     </nav>
     <div class="actions">
         <a href="login.jsp" class="login">Login</a>
-        <a href="register.jsp" class="register">Register</a>
+        <a href="view/register.jsp" class="register">Register</a>
     </div>
 </header>
 
@@ -148,7 +148,7 @@
         <img src="https://img.icons8.com/ios-filled/50/ffffff/movie-projector.png" alt="logo" style="height:40px;">
         <h2>Login to Your Account</h2>
         <form method="post" action="LoginServlet">
-            <label>Username</label>
+            <label>User name</label>
             <input type="text" name="username" placeholder="Enter username" required>
 
             <label>Password</label>
