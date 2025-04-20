@@ -132,14 +132,14 @@
         FilmFanatic
     </div>
     <nav>
-        <a href="#">Home</a>
-        <a href="#">Movies</a>
-        <a href="#">About</a>
+        <a href="dashboard.jsp">Home</a>
+        <a href="movie_list.jsp">Movies</a>
+        <a href="about.jsp">About</a>
         <input type="text" class="search-bar" placeholder="Search Movies...">
     </nav>
     <div class="actions">
         <a href="login.jsp" class="login">Login</a>
-        <a href="view/register.jsp" class="register">Register</a>
+        <a href="register.jsp" class="register">Register</a>
     </div>
 </header>
 

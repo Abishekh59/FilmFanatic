@@ -145,14 +145,14 @@
         FilmFanatic
     </div>
     <nav>
-        <a href="#">Home</a>
-        <a href="#">Movies</a>
-        <a href="#">About</a>
+        <a href="dashboard">Home</a>
+        <a href="movie_list.jsp">Movies</a>
+        <a href="about.jsp">About</a>
         <input type="text" class="search-bar" placeholder="Search Movies...">
     </nav>
     <div class="actions">
         <a href="login.jsp" class="login">Login</a>
-        <a href="view/register.jsp" class="register">Register</a>
+        <a href="register.jsp" class="register">Register</a>
     </div>
 </header>
 
@@ -160,7 +160,7 @@
     <div class="form-box">
         <img src="https://img.icons8.com/ios-filled/50/ffffff/movie-projector.png" alt="logo" style="height:40px;">
         <h2>Create an Account</h2>
-        <form method="post" action="../RegisterServlet">
+        <form method="post" action="RegisterServlet">
             <label>User name</label>
             <input type="text" name="username" placeholder="Choose a username" required>
 
