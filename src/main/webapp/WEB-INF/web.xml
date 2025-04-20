@@ -9,7 +9,7 @@
 
   <!-- Welcome file list -->
   <welcome-file-list>
-    <welcome-file>view/login.jsp</welcome-file> <!-- Set login.jsp as default page -->
+    <welcome-file>view/landing.jsp</welcome-file> <!-- Set login.jsp as default page -->
   </welcome-file-list>
 
   <!-- RegisterServlet Configuration -->

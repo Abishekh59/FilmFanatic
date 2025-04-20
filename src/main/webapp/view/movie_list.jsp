@@ -35,15 +35,18 @@
         nav a {
             color: white;
             text-decoration: none;
-            margin: 0 15px;
+            margin: 0 100px;
+            font-size: 24px;
         }
 
-        .search-bar {
+         .search-bar {
             padding: 6px 12px;
             border-radius: 5px;
             border: none;
             background-color: #1e2b3a;
             color: white;
+            width:400px;
+            height: 35px;
         }
          .actions a {
             margin-left: 20px;
@@ -77,7 +80,7 @@
 
         .filter-btn:hover,
         .filter-btn.active {
-            background-color: #e74c3c;
+            background-color: #E50815;
             color: white;
             border-color: #e74c3c;
         }
@@ -161,7 +164,7 @@
         <input type="text" class="search-bar" placeholder="Search Movies...">
     </nav>
             <div class="actions">
-            <a href="profile.jsp" class="profile">Proifle</a>
+            <a href="profile.jsp" class="profile">Profile</a>
              <a href="" class="logout">Logout</a>
         </div>
 </header>

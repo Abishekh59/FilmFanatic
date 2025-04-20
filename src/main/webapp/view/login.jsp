@@ -25,18 +25,20 @@
             align-items: center;
             font-size: 24px;
             font-weight: bold;
-            color: white;
+            color: #E50815;
         }
 
         .logo img {
             height: 28px;
             margin-right: 10px;
         }
+        
 
-        nav a {
+         nav a {
             color: white;
             text-decoration: none;
-            margin: 0 15px;
+            margin: 0 100px;
+            font-size: 24px;
         }
 
         .search-bar {
@@ -47,21 +49,36 @@
             color: white;
         }
 
+        .actions {
+            display: flex;
+            gap: 1rem;
+        }
+
         .actions a {
-            margin-left: 15px;
-            padding: 8px 16px;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
             text-decoration: none;
-            border-radius: 5px;
-            color: white;
-            font-weight: bold;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
 
         .login {
-            background-color: transparent;
+            color: var(--text-color);
+            border: 2px solid var(--primary-color);
         }
 
+        .login:hover {
+            background-color: #E50815;
+        }
+        
+
         .register {
-            background-color: #e74c3c;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+        }
+
+        .register:hover {
+            background-color: #E50815;
         }
 
         .container {
@@ -107,7 +124,7 @@
             padding: 12px;
             border: none;
             border-radius: 6px;
-            background-color: #e74c3c;
+            background-color: #E50815;
             color: white;
             font-size: 16px;
             cursor: pointer;
@@ -119,7 +136,7 @@
         }
 
         .form-box .register-link a {
-            color: #e74c3c;
+            color: #E50815;
             text-decoration: none;
         }
     </style>

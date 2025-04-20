@@ -31,18 +31,19 @@
       margin: 0;
     }
 
-    nav a {
-      color: white;
-      margin: 0 1rem;
-      text-decoration: none;
-    }
+     nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 100px;
+            font-size: 24px;
+        }
 
     nav a:hover {
       text-decoration: underline;
     }
 
     .container {
-      width: 100%;
+      width: 60%;
       max-width: 100%;
       margin: 0 auto;
       padding: 2rem 5vw;

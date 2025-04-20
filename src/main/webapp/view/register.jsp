@@ -25,7 +25,7 @@
             align-items: center;
             font-size: 24px;
             font-weight: bold;
-            color: white;
+            color: #E50815;
         }
 
         .logo img {
@@ -36,32 +36,49 @@
         nav a {
             color: white;
             text-decoration: none;
-            margin: 0 15px;
+            margin: 0 100px;
+            font-size: 24px;
         }
 
-        .search-bar {
+         .search-bar {
             padding: 6px 12px;
             border-radius: 5px;
             border: none;
             background-color: #1e2b3a;
             color: white;
+            width:400px;
+            height: 35px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 1rem;
         }
 
         .actions a {
-            margin-left: 15px;
-            padding: 8px 16px;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
             text-decoration: none;
-            border-radius: 5px;
-            color: white;
-            font-weight: bold;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
 
         .login {
-            background-color: transparent;
+            color: var(--text-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .login:hover {
+            background-color:  #E50815;
         }
 
         .register {
-            background-color: #e74c3c;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+        }
+
+        .register:hover {
+            background-color: #E50815;
         }
 
         .container {
@@ -120,7 +137,7 @@
             padding: 12px;
             border: none;
             border-radius: 6px;
-            background-color: #e74c3c;
+            background-color: #E50815;
             color: white;
             font-size: 16px;
             cursor: pointer;
@@ -145,7 +162,7 @@
         FilmFanatic
     </div>
     <nav>
-        <a href="dashboard">Home</a>
+        <a href="dashboard.jsp">Home</a>
         <a href="movie_list.jsp">Movies</a>
         <a href="about.jsp">About</a>
         <input type="text" class="search-bar" placeholder="Search Movies...">
@@ -176,7 +193,7 @@
 
             <div class="checkbox">
                 <input type="checkbox" required>
-                <span>I agree to the <a href="#" style="color: #e74c3c;">Terms of Services</a> and Privacy Policy</span>
+                <span>I agree to the <a href="#" style="color: #E50815;">Terms of Services</a> and Privacy Policy</span>
             </div>
 
             <button class="btn" type="submit">Register</button>

@@ -27,6 +27,15 @@
       align-items: center;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
+    .actions a {
+            margin-left: 20px;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
 
     .logo {
       font-size: 1.5rem;
@@ -41,29 +50,22 @@
       margin-right: 12px;
     }
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 20px;
-      font-size: 16px;
-    }
+     nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 100px;
+            font-size: 24px;
+        }
 
-    .search-bar input {
-      padding: 5px;
-      border-radius: 3px;
-      background-color: #1e2b3a;
-      color: white;
-    }
-
-    .search-bar button {
-      margin-left: 5px;
-      padding: 5px 10px;
-      background-color: #e74c3c;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+          .search-bar {
+            padding: 6px 12px;
+            border-radius: 5px;
+            border: none;
+            background-color: #1e2b3a;
+            color: white;
+            width:400px;
+            height: 35px;
+        }
 
     .user-links a {
       color: white;
@@ -230,25 +232,22 @@
 
 <body>
 
-  <!-- Navbar -->
-  <header>
+ <header>
     <div class="logo">
-      <img src="https://img.icons8.com/ios-filled/50/ffffff/movie-projector.png" alt="Logo">
-      FilmFanatic
+        <img src="https://img.icons8.com/ios-filled/50/ffffff/movie-projector.png" alt="logo"/>
+        FilmFanatic
     </div>
     <nav>
-      <a href="dashboard.jsp">Home</a>
-      <a href="movie_list">Movies</a>
-      <a href="about.jsp">About</a>
+        <a href="dashboard.jsp">Home</a>
+        <a href="movie_list.jsp">Movies</a>
+        <a href="about.jsp">About</a>
+        <input type="text" class="search-bar" placeholder="Search Movies...">
     </nav>
-    <div class="search-bar">
-      <input type="text" placeholder="Search Movies...">
-    </div>
-    <div class="user-links">
-      <a href="profile.jsp">Profile</a>
-      <a href="#">Logout</a>
-    </div>
-  </header>
+            <div class="actions">
+            <a href="profile.jsp" class="profile">Profile</a>
+             <a href="" class="logout">Logout</a>
+        </div>
+</header>
 
   <!-- Profile Section -->
   <section class="profile-section">
