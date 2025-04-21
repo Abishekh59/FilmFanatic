@@ -30,6 +30,18 @@
       color: #e50914;
       margin: 0;
     }
+    .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #E50815;
+        }
+
+        .logo img {
+            height: 28px;
+            margin-right: 10px;
+        }
 
      nav a {
             color: white;
@@ -39,8 +51,9 @@
         }
 
     nav a:hover {
-      text-decoration: underline;
+      color: #E50815;
     }
+          
 
     .container {
       width: 60%;
@@ -151,7 +164,10 @@
 <body>
 
   <header>
-    <h1>FilmFanatic</h1>
+        <div class="logo">
+        <img src="https://img.icons8.com/ios-filled/50/ffffff/movie-projector.png" alt="logo"/>
+        FilmFanatic
+    </div>
     <nav>
       <a href="home.jsp">Home</a>
       <a href="movies.jsp">Movies</a>

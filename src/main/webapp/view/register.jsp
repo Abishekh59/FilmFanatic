@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Register - FilmFanatic</title>
-    <style>
+<style>
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -153,6 +153,7 @@
             text-decoration: none;
         }
     </style>
+
 </head>
 <body>
 
@@ -177,27 +178,47 @@
     <div class="form-box">
         <img src="https://img.icons8.com/ios-filled/50/ffffff/movie-projector.png" alt="logo" style="height:40px;">
         <h2>Create an Account</h2>
-        <form method="post" action="RegisterServlet">
-            <label>User name</label>
-            <input type="text" name="username" placeholder="Choose a username" required>
-
-            <label>Email address</label>
-            <input type="email" name="email" placeholder="Example@email.com" required>
-
-            <label>Password</label>
-            <input type="password" name="password" placeholder="********" required>
-            <small style="float:left; color: #bbb;">Password must be at least 8 characters long.</small>
-
-            <label>Confirm password</label>
-            <input type="password" name="confirmPassword" placeholder="********" required>
-
-            <div class="checkbox">
-                <input type="checkbox" required>
-                <span>I agree to the <a href="#" style="color: #E50815;">Terms of Services</a> and Privacy Policy</span>
+        
+        <!-- Check for any error messages -->
+        <c:if test="${not empty error}">
+            <div style="color: red; margin-bottom: 15px;">
+                ${error}
             </div>
+        </c:if>
+        
+        <!-- Registration form -->
+        <form method="post" action="${pageContext.request.contextPath}/RegisterServlet">
+    <!-- Hidden User ID (you can auto-generate this in backend ideally) -->
+    <input type="hidden" name="userId" value="0">
 
-            <button class="btn" type="submit">Register</button>
-        </form>
+    <label>User name</label>
+    <input type="text" name="username" placeholder="Choose a username" required>
+
+    <label>Email address</label>
+    <input type="email" name="email" placeholder="Example@email.com" required>
+
+    <label>Password</label>
+    <input type="password" name="password" placeholder="********" required>
+    <small style="float:left; color: #bbb;">Password must be at least 8 characters long.</small>
+
+    <label>Confirm password</label>
+    <input type="password" name="confirmPassword" placeholder="********" required>
+
+    <!-- Role Selection -->
+    <label>Role</label>
+    <select name="role" required>
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+    </select>
+
+    <div class="checkbox">
+        <input type="checkbox" required>
+        <span>I agree to the <a href="#" style="color: #E50815;">Terms of Services</a> and Privacy Policy</span>
+    </div>
+
+    <button class="btn" type="submit">Register</button>
+</form>
+
 
         <div class="login-link">
             Already have an account? <a href="login.jsp">Log in</a>

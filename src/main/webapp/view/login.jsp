@@ -140,6 +140,7 @@
             text-decoration: none;
         }
     </style>
+
 </head>
 <body>
 
@@ -164,7 +165,7 @@
     <div class="form-box">
         <img src="https://img.icons8.com/ios-filled/50/ffffff/movie-projector.png" alt="logo" style="height:40px;">
         <h2>Login to Your Account</h2>
-        <form method="post" action="LoginServlet">
+        <form method="post" action="${pageContext.request.contextPath}/LoginServlet">
             <label>User name</label>
             <input type="text" name="username" placeholder="Enter username" required>
 

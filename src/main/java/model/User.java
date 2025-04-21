@@ -1,14 +1,25 @@
 package model;
 
+import java.sql.Timestamp;
+
 public class User {
     private int userId;
     private String username;
     private String email;
     private String password;
     private String role;
-    private java.sql.Timestamp createdAt;
+    private Timestamp createdAt;
 
-    public User(int userId, String username, String email, String password, String role, java.sql.Timestamp createdAt) {
+    public User() {}
+
+    public User(String username, String email, String password, String role) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    public User(int userId, String username, String email, String password, String role, Timestamp createdAt) {
         this.userId = userId;
         this.username = username;
         this.email = email;
@@ -17,52 +28,52 @@ public class User {
         this.createdAt = createdAt;
     }
 
-	public int getUserId() {
-		return userId;
-	}
+    // Getters and Setters
+    public int getUserId() {
+        return userId;
+    }
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public String getRole() {
+        return role;
+    }
+    public void setRole(String role) {
+        this.role = role;
+    }
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	public java.sql.Timestamp getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(java.sql.Timestamp createdAt) {
-		this.createdAt = createdAt;
-	}
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", role='" + role + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }

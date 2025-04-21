@@ -55,8 +55,19 @@
             text-decoration: none;
             border-radius: 6px;
             color: white;
-            font-weight: bold;
-            font-size: 14px;
+            font-size: 20px;
+        }
+
+        .profile {
+            background-color: #2980b9;
+        }
+
+        .logout {
+            background-color: #c0392b;
+        }
+        
+        nav a:hover {
+            color: #E50815;
         }
 
         .container {
@@ -216,10 +227,14 @@
         <a href="about.jsp">About</a>
         <input type="text" class="search-bar" placeholder="Search Movies...">
     </nav>
-            <div class="actions">
-            <a href="profile.jsp" class="profile">Profile</a>
-             <a href="" class="logout">Logout</a>
-        </div>
+       <div class="actions">
+          <a href="profile.jsp" class="profile">Profile</a>
+          <a href="logout.jsp" class="logout">
+             <img src="https://img.icons8.com/material-rounded/24/ffffff/exit.png" alt="Logout Icon"
+                  style="vertical-align: middle; margin-right: 5px;" />
+                Logout
+            </a>
+   	 </div>
 </header>
 
 <div class="container">

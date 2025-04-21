@@ -16,7 +16,7 @@
     body {
       display: flex;
       flex-direction: column;
-      min-height: 100vh;a
+      min-height: 100vh;
       background-color: #1e1f29;
       color: #fff;
     }
@@ -117,6 +117,66 @@
       background-color: #dc3545;
       color: white;
     }
+
+    /* Modal styles */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+      padding-top: 60px;
+    }
+
+    .modal-content {
+      background-color: #2e2f3e;
+      margin: 5% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 4px;
+    }
+
+    .modal-header {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .modal-body input,
+    .modal-body textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      border: 1px solid #444;
+      border-radius: 4px;
+      background-color: #3a3b47;
+      color: white;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1rem;
+    }
+
+    .modal-footer button {
+      padding: 0.5rem 1rem;
+      background-color: red;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .modal-footer .close {
+      background-color: #007bff;
+    }
   </style>
 </head>
 
@@ -172,7 +232,7 @@
       <section class="section">
         <div class="section-header">
           <input type="text" placeholder="Search Movies..." />
-          <button onclick="alert('Add Movie')">+ Add Movies</button>
+          <button onclick="openModal()">+ Add Movies</button>
         </div>
         <table>
           <tr>
@@ -224,6 +284,40 @@
       </section>
     </main>
   </div>
+
+  <!-- Modal for adding movie -->
+  <div id="addMovieModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span>Add New Movie</span>
+      </div>
+      <div class="modal-body">
+        <form>
+          <input type="text" placeholder="Title" required />
+          <input type="text" placeholder="Director" required />
+          <textarea placeholder="Description" required></textarea>
+          <input type="date" placeholder="Release Date" required />
+          <input type="number" placeholder="Rating" step="0.1" min="0" max="10" required />
+          <input type="text" placeholder="Cast" required />
+          <input type="text" placeholder="Genre ID" required />
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="close" onclick="closeModal()">Close</button>
+        <button onclick="alert('Add Movie')">Add Movie</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById('addMovieModal').style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('addMovieModal').style.display = 'none';
+    }
+  </script>
 </body>
 
 </html>
