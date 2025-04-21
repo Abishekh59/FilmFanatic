@@ -32,9 +32,8 @@
             height: 28px;
             margin-right: 10px;
         }
-        
 
-         nav a {
+        nav a {
             color: white;
             text-decoration: none;
             margin: 0 100px;
@@ -70,7 +69,6 @@
         .login:hover {
             background-color: #E50815;
         }
-        
 
         .register {
             background-color: var(--primary-color);
@@ -139,8 +137,14 @@
             color: #E50815;
             text-decoration: none;
         }
-    </style>
 
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -165,15 +169,45 @@
     <div class="form-box">
         <img src="https://img.icons8.com/ios-filled/50/ffffff/movie-projector.png" alt="logo" style="height:40px;">
         <h2>Login to Your Account</h2>
-        <form method="post" action="${pageContext.request.contextPath}/LoginServlet">
-            <label>User name</label>
-            <input type="text" name="username" placeholder="Enter username" required>
 
-            <label>Password</label>
-            <input type="password" name="password" placeholder="********" required>
+        <!-- Display error message if login fails -->
+        <%
+            String error = (String) request.getAttribute("errorMessage");
+            if (error != null) {
+        %>
+            <p class="error-message"><%= error %></p>
+        <%
+            }
+        %>
 
-            <button class="btn" type="submit">Login</button>
-        </form>
+        <!-- Check for remembered username -->
+        <%
+    String rememberedUser = "";
+    Cookie[] cookies = request.getCookies();
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if ("username".equals(cookie.getName())) {
+                rememberedUser = cookie.getValue();
+                break;
+            }
+        }
+    }
+%>
+
+<form method="post" action="${pageContext.request.contextPath}/LoginServlet">
+    <label>User name</label>
+    <input type="text" name="username" value="<%= rememberedUser %>" placeholder="Enter username" required>
+
+    <label>Password</label>
+    <input type="password" name="password" placeholder="********" required>
+
+    <!-- Remember Me checkbox -->
+    <label>
+        <input type="checkbox" name="remember"> Remember Me
+    </label>
+
+    <button class="btn" type="submit">Login</button>
+</form>
 
         <div class="register-link">
             Don't have an account? <a href="register.jsp">Register now</a>

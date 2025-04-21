@@ -11,61 +11,53 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.sql.Connection;
 
-@WebServlet("/LoginServlet") // Changed to lowercase for convention and cleaner URL mapping
+@WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private UserDAO userDAO;
 
     @Override
     public void init() throws ServletException {
-        System.out.println("🔁 Initializing LoginServlet...");
-        Connection connection = DbConnectionUtil.getConnection();
-
-        if (connection == null) {
-            System.err.println("❌ Could not establish DB connection in servlet.");
-            throw new ServletException("Failed to establish DB connection via DbConnectionUtil");
+        Connection conn = DbConnectionUtil.getConnection();
+        if (conn == null) {
+            throw new ServletException("DB connection failed");
         }
-
-        System.out.println("✅ DB connection initialized in servlet.");
-        userDAO = new UserDAO(connection);
+        userDAO = new UserDAO(conn);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
 
-        try {
-            System.out.println("📥 Received user login request");
+        String username = request.getParameter("username");
+        String plainPassword = request.getParameter("password");
+        String rememberMe = request.getParameter("remember"); // "on" or null
 
-            // Collect form parameters
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
+        System.out.println("Login attempt for username: " + username);
 
-            // Logging inputs (don't log password in production)
-            System.out.println("🧾 User Input - Username: " + username);
+        // authenticate (DAO does hash+compare)
+        User user = userDAO.authenticateUser(username, plainPassword);
 
-            // Attempt authentication
-            User user = userDAO.authenticateUser(username, password);
+        if (user != null) {
+            // success: put user in session
+            request.getSession().setAttribute("user", user);
 
-            if (user != null) {
-                System.out.println("✅ Login successful for user: " + user.getUsername());
-
-                // Save user in session
-                HttpSession session = request.getSession();
-                session.setAttribute("user", user);
-
-                // Redirect to dashboard or homepage
-                response.sendRedirect("dashboard.jsp");
+            // Remember-Me cookie
+            Cookie cookie = new Cookie("username", (rememberMe != null ? username : ""));
+            cookie.setPath("/");
+            if (rememberMe != null) {
+                cookie.setMaxAge(60 * 60 * 24 * 30); // 30 days
             } else {
-                System.err.println("❌ Login failed: Invalid credentials");
-                request.setAttribute("errorMessage", "Invalid username or password.");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+                cookie.setMaxAge(0);               // delete
             }
-        } catch (Exception e) {
-            System.err.println("❌ Exception during login:");
-            e.printStackTrace();
-            request.setAttribute("errorMessage", "Login failed: " + e.getMessage());
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            response.addCookie(cookie);
+
+            response.sendRedirect("view/dashboard.jsp");
+        } else {
+            // failure: show error
+            request.setAttribute("errorMessage", "Invalid username or password.");
+            request.getRequestDispatcher("login.jsp")
+                   .forward(request, response);
         }
     }
 }
