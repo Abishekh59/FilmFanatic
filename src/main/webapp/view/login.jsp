@@ -48,18 +48,6 @@
             color: white;
         }
 
-        .actions {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .actions a {
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
 
         .login {
             color: var(--text-color);
@@ -152,16 +140,6 @@
     <div class="logo">
         <img src="https://img.icons8.com/ios-filled/50/ffffff/movie-projector.png" alt="logo"/>
         FilmFanatic
-    </div>
-    <nav>
-        <a href="dashboard.jsp">Home</a>
-        <a href="movie_list.jsp">Movies</a>
-        <a href="about.jsp">About</a>
-        <input type="text" class="search-bar" placeholder="Search Movies...">
-    </nav>
-    <div class="actions">
-        <a href="login.jsp" class="login">Login</a>
-        <a href="register.jsp" class="register">Register</a>
     </div>
 </header>
 

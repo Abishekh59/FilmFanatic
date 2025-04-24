@@ -113,17 +113,17 @@
     </p>
     <div class="button-group">
       <button onclick="goToLogin()">Login</button>
-      <button onclick="goToSignup()">Regester</button>
+      <button onclick="goToSignup()">Register</button>
     </div>
   </div>
 
   <script>
     function goToLogin() {
-      window.location.href = "login.jsp";
+      window.location.href = "view/login.jsp";
     }
 
     function goToSignup() {
-      window.location.href = "register.jsp";
+      window.location.href = "view/register.jsp";
     }
   </script>
 </body>
