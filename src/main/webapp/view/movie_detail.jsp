@@ -6,53 +6,71 @@
   <meta charset="UTF-8">
   <title>Movie Details - FilmFanatic</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+     body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0e1626;
+            color: white;
+        }
 
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0d1117;
-      color: #ffffff;
-    }
+         header {
+            background-color: #141d2f;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    header {
-      background-color: #161b22;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-    }
-
-    header h1 {
-      color: #e50914;
-      margin: 0;
-    }
-    .logo {
+        .logo {
             display: flex;
             align-items: center;
             font-size: 24px;
             font-weight: bold;
-            color: #E50815;
+            color: #e50914;
         }
 
         .logo img {
             height: 28px;
             margin-right: 10px;
+            filter: brightness(0) saturate(100%) invert(21%) sepia(97%) saturate(7476%) hue-rotate(353deg) brightness(92%) contrast(106%);
         }
 
-     nav a {
+        nav a {
             color: white;
             text-decoration: none;
             margin: 0 100px;
             font-size: 24px;
         }
 
-    nav a:hover {
-      color: #E50815;
-    }
+         .search-bar {
+            padding: 6px 12px;
+            border-radius: 5px;
+            border: none;
+            background-color: #1e2b3a;
+            color: white;
+            width:400px;
+            height: 35px;
+        }
+         .actions a {
+            margin-left: 20px;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 20px;
+        }
+
+        .profile {
+            background-color: #2980b9;
+        }
+
+        .logout {
+            background-color: #c0392b;
+        }
+        
+        nav a:hover {
+            color: #E50815;
+        }
           
 
     .container {
@@ -162,68 +180,76 @@
   </style>
 </head>
 <body>
-
-  <header>
-        <div class="logo">
+ <header>
+    <div class="logo">
         <img src="https://img.icons8.com/ios-filled/50/ffffff/movie-projector.png" alt="logo"/>
         FilmFanatic
     </div>
     <nav>
-      <a href="home.jsp">Home</a>
-      <a href="movies.jsp">Movies</a>
-      <a href="about.jsp">About</a>
-      <a href="profile.jsp">Profile</a>
-      <a href="logout.jsp">Logout</a>
-    </nav>
-  </header>
+    <a href="dashboard.jsp">Home</a>
+    <a href="movie_list.jsp">Movies</a>
+    <a href="about.jsp">About</a>
+    <a href="contact.jsp">Contact</a> <!-- New link -->
+    <input type="text" class="search-bar" placeholder="Search Movies...">
+</nav>
+       <div class="actions">
+          <a href="profile.jsp" class="profile">Profile</a>
+          <a href="logout.jsp" class="logout">
+             <img src="https://img.icons8.com/material-rounded/24/ffffff/exit.png" alt="Logout Icon"
+                  style="vertical-align: middle; margin-right: 5px;" />
+                Logout
+            </a>
+   	 </div>
+</header>
 
   <div class="container">
-    <img src="https://i.ibb.co/KbgMYht/stranger-things.jpg" alt="Stranger Things" class="movie-banner">
-    
-    <div class="movie-info">
-      <h2>Stranger Things</h2>
-      <p><strong>Genre:</strong> Sci-Fi, Thriller, Mystery</p>
-      <p><strong>Year:</strong> 2022 &nbsp;&nbsp; <strong>Duration:</strong> 136 min</p>
-      <p><strong>Director:</strong> Matt Duffer and Ross Duffer</p>
-      <p>
-        When a young boy vanishes, a small town uncovers a mystery involving secret experiments,
-        terrifying supernatural forces and one strange little girl.
-      </p>
-    </div>
+  <img src="https://image.tmdb.org/t/p/w500/q719jXXEzOoYaps6babgKnONONX.jpg" alt="Your Name" class="movie-banner">
 
-    <div class="actions">
-      <button onclick="window.open('https://youtube.com', '_blank')">▶ Watch Trailer</button>
-      <button>Add to Favorites</button>
-    </div>
-
-    <div class="review-section">
-      <h3>Reviews</h3>
-
-      <!-- Review Submission Form -->
-      <div class="review-form">
-        <form action="submitReview.jsp" method="post">
-          <label for="rating">Your Rating (1-10):</label>
-          <input type="number" name="rating" min="1" max="10" required>
-          <textarea name="comment" placeholder="Write your review here..." rows="4" required></textarea>
-          <button type="submit">Submit Review</button>
-        </form>
-      </div>
-
-      <!-- Example Reviews -->
-      <div class="review">
-        <h4>MovieFan123 <span style="color: #ffc107;">⭐ 9/10</span></h4>
-        <small>02/01/2023</small>
-        <p>One of the best movies I’ve ever seen! The concept is mind-blowing and the execution is perfect.</p>
-      </div>
-
-      <div class="review">
-        <h4>CinemaLover <span style="color: #ffc107;">⭐ 8/10</span></h4>
-        <small>02/02/2023</small>
-        <p>Incredible movie with amazing visual effects and a complex storyline.</p>
-      </div>
-
-    </div>
+  <div class="movie-info">
+    <h2>Your Name</h2>
+    <p><strong>Genre:</strong> Anime, Romance, Drama</p>
+    <p><strong>Year:</strong> 2016 &nbsp;&nbsp; <strong>Duration:</strong> 112 min</p>
+    <p><strong>Director:</strong> Makoto Shinkai</p>
+    <p>
+      Two teenagers share a profound, magical connection upon discovering they are swapping bodies.
+      Things manage to become even more complicated when the boy and girl decide to meet in person.
+    </p>
   </div>
+
+  <div class="actions">
+    <button onclick="window.open('https://www.youtube.com/watch?v=xU47nhruN-Q', '_blank')">▶ Watch Trailer</button>
+    <button>Add to Favorites</button>
+  </div>
+
+  <div class="review-section">
+    <h3>Reviews</h3>
+
+    <!-- Review Submission Form -->
+    <div class="review-form">
+      <form action="submitReview.jsp" method="post">
+        <label for="rating">Your Rating (1-10):</label>
+        <input type="number" name="rating" min="1" max="10" required>
+        <textarea name="comment" placeholder="Write your review here..." rows="4" required></textarea>
+        <button type="submit">Submit Review</button>
+      </form>
+    </div>
+
+    <!-- Example Reviews -->
+    <div class="review">
+      <h4>AnimeLover22 <span style="color: #ffc107;">⭐ 10/10</span></h4>
+      <small>01/15/2023</small>
+      <p>Absolutely breathtaking! The story, animation, and music were all phenomenal.</p>
+    </div>
+
+    <div class="review">
+      <h4>RomanceFan <span style="color: #ffc107;">⭐ 9/10</span></h4>
+      <small>01/20/2023</small>
+      <p>A beautifully crafted film that stays with you long after the credits roll.</p>
+    </div>
+
+  </div>
+</div>
+
 
   <div class="footer">
     &copy; 2025 FilmFanatic. All rights reserved.

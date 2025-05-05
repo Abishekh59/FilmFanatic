@@ -25,39 +25,42 @@ public class LoginServlet extends HttpServlet {
         userDAO = new UserDAO(conn);
     }
 
+   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
 
         String username = request.getParameter("username");
         String plainPassword = request.getParameter("password");
-        String rememberMe = request.getParameter("remember"); // "on" or null
+        String rememberMe = request.getParameter("remember");
 
         System.out.println("Login attempt for username: " + username);
 
-        // authenticate (DAO does hash+compare)
         User user = userDAO.authenticateUser(username, plainPassword);
 
         if (user != null) {
-            // success: put user in session
-            request.getSession().setAttribute("user", user);
+            // Put user in session
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
 
             // Remember-Me cookie
             Cookie cookie = new Cookie("username", (rememberMe != null ? username : ""));
             cookie.setPath("/");
-            if (rememberMe != null) {
-                cookie.setMaxAge(60 * 60 * 24 * 30); // 30 days
-            } else {
-                cookie.setMaxAge(0);               // delete
-            }
+            cookie.setMaxAge(rememberMe != null ? (60 * 60 * 24 * 30) : 0);
             response.addCookie(cookie);
 
-            response.sendRedirect("view/dashboard.jsp");
+            // Redirect based on role
+            String role = user.getRole(); // Ensure `getRole()` exists in your User model
+            if ("Admin".equalsIgnoreCase(role)) {
+                response.sendRedirect("view/admin_panel.jsp");
+            } else {
+                response.sendRedirect("view/dashboard.jsp");
+            }
+
         } else {
-            // failure: show error
+            // Login failed
             request.setAttribute("errorMessage", "Invalid username or password.");
-            request.getRequestDispatcher("login.jsp")
-                   .forward(request, response);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
 }

@@ -65,7 +65,7 @@
       flex-wrap: wrap;
     }
 
-    .button-group button {
+    .button-group .btn-link {
       padding: 0.8rem 2rem;
       font-size: 1rem;
       border: none;
@@ -73,11 +73,13 @@
       cursor: pointer;
       background: #e50914;
       color: white;
+      text-decoration: none;
+      display: inline-block;
       box-shadow: 0 5px 15px rgba(229, 9, 20, 0.3);
       transition: all 0.3s ease-in-out;
     }
 
-    .button-group button:hover {
+    .button-group .btn-link:hover {
       background: #b0060f;
       transform: translateY(-2px);
     }
@@ -112,19 +114,9 @@
       Your ultimate destination for discovering, reviewing, and tracking the latest and greatest movies. Join our community of film lovers and explore curated collections, honest reviews, and more.
     </p>
     <div class="button-group">
-      <button onclick="goToLogin()">Login</button>
-      <button onclick="goToSignup()">Register</button>
+      <a href="login.jsp" class="btn-link">Login</a>
+      <a href="register.jsp" class="btn-link">Register</a>
     </div>
   </div>
-
-  <script>
-    function goToLogin() {
-      window.location.href = "view/login.jsp";
-    }
-
-    function goToSignup() {
-      window.location.href = "view/register.jsp";
-    }
-  </script>
 </body>
 </html>

@@ -24,12 +24,13 @@
             align-items: center;
             font-size: 24px;
             font-weight: bold;
-            color: white;
+            color: #e50914;
         }
 
         .logo img {
             height: 28px;
             margin-right: 10px;
+            filter: brightness(0) saturate(100%) invert(21%) sepia(97%) saturate(7476%) hue-rotate(353deg) brightness(92%) contrast(106%);
         }
 
         nav a {
@@ -111,6 +112,8 @@
             box-shadow: 0 0 6px rgba(0,0,0,0.4);
             transition: transform 0.3s;
         }
+        
+        
 
         .movie-card:hover {
             transform: scale(1.03);
@@ -130,22 +133,54 @@
             margin: 0;
             font-size: 16px;
         }
+        .movie-card .info h4 a{
+            margin: 0;
+            font-size: 16px;
+            color: White;
+            text-decoration: none;
+            
+        }
 
         .movie-card .info p {
             margin: 4px 0 0;
             font-size: 13px;
             color: #bbb;
+            
         }
 
         footer {
-            background-color: #141d2f;
-            text-align: center;
-            padding: 20px;
-            font-size: 14px;
-            color: #888;
-        }
+      display: flex;
+      justify-content: space-around;
+      background: #1c1f2b;
+      padding: 2rem 1rem;
+      color: #ccc;
+      flex-wrap: wrap;
+    }
+
+    .footer-col h4 {
+      margin-bottom: 10px;
+    }
+
+    .footer-col a {
+      display: block;
+      color: #aaa;
+      text-decoration: none;
+      margin: 5px 0;
+    }
+
+    .footer-col p {
+      font-size: 0.9rem;
+    }
+
+    .copyright {
+      background: #111;
+      text-align: center;
+      padding: 10px;
+      font-size: 0.8rem;
+      color: #aaa;
+    }
     </style>
-    <script>
+   <script>
         // Function to filter movies based on category
         function filterMovies(category) {
             const buttons = document.querySelectorAll('.filter-btn');
@@ -189,6 +224,7 @@
         <a href="dashboard.jsp">Home</a>
         <a href="movie_list.jsp">Movies</a>
         <a href="about.jsp">About</a>
+        <a href="contact.jsp">Contact</a> 
         <input type="text" class="search-bar" placeholder="Search Movies..." oninput="searchMovies()">
     </nav>
     <div class="actions">
@@ -214,7 +250,7 @@
    <div class="movie-card Anime">
     <img src="https://image.tmdb.org/t/p/w500/q719jXXEzOoYaps6babgKnONONX.jpg" alt="Your Name">
     <div class="info">
-        <h4>Your Name</h4>
+        <h4><a href="movie_detail.jsp">Your name</a> </h4>
         <p>Anime | 2016</p>
     </div>
 </div>
@@ -405,9 +441,40 @@
 </div>
 </div>
 
-<footer>
-    <p>© 2025 FilmFanatic. All Rights Reserved.</p>
-</footer>
+ <footer>
+    <div class="footer-col">
+      <h4>FilmFanatic</h4>
+      <p>Your one-stop platform for discovering, rating, and reviewing the best movies from around the world.</p>
+      <div class="socials" style="display: flex; gap: 15px; margin-top: 10px;">
+        <a href="#" style="color:white;"><i class="fab fa-github fa-lg"></i></a>
+        <a href="#" style="color:white;"><i class="fab fa-twitter fa-lg"></i></a>
+        <a href="#" style="color:white;"><i class="fab fa-facebook fa-lg"></i></a>
+        <a href="#" style="color:white;"><i class="fab fa-instagram fa-lg"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="#">Home</a>
+      <a href="#">Movies</a>
+      <a href="#">About Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>Genres</h4>
+      <a href="#">Action</a>
+      <a href="#">Comedy</a>
+      <a href="#">Drama</a>
+      <a href="#">Horror</a>
+      <a href="#">Sci-Fi</a>
+    </div>
+    <div class="footer-col">
+      <p>123 Movie Street, Damak-7</p>
+      <p>+023 560908</p>
+      <p>info@filmfanatic.com</p>
+    </div>
+  </footer>
 
+  <div class="copyright">
+    © 2025 FilmFanatic. All Rights Reserved.
+  </div>
 </body>
 </html>

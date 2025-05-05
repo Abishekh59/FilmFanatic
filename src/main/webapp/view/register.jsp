@@ -183,12 +183,6 @@
     <label>Confirm password</label>
     <input type="password" name="confirmPassword" placeholder="********" required>
 
-    <!-- Role Selection -->
-    <label>Role</label>
-    <select name="role" required>
-        <option value="user">User</option>
-        <option value="admin">Admin</option>
-    </select>
 
     <div class="checkbox">
         <input type="checkbox" required>
