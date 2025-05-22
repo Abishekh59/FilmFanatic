@@ -1,10 +1,11 @@
 package dao;
 
-import model.User;
-import Utils.SecurityUtil;  // Add the SecurityUtil import for password hashing
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.ArrayList;  // Add the SecurityUtil import for password hashing
+import java.util.Base64;
 import java.util.List;
+import model.User;
+import util.SecurityUtil;
 
 public class UserDAO {
     private final Connection connection;
@@ -14,16 +15,17 @@ public class UserDAO {
     }
 
     public boolean registerUser(User user) {
-        String sql = "INSERT INTO user (username, email, password, role, createdAt) VALUES (?, ?, ?, ?, NOW())";
+        String sql = "INSERT INTO user (username, email, password, role, created_at) VALUES (?, ?, ?, ?, NOW())";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getEmail());
+            stmt.setString(3, user.getPassword()); // Use the hashed password from the User object
+            
+            // Set default role as "User" if not specified
+            String role = (user.getRole() != null && !user.getRole().trim().isEmpty()) ? user.getRole() : "User";
+            stmt.setString(4, role);
 
-            // 🔥 Password is already hashed before reaching here
-            System.out.println("Registering user with hashed password: " + user.getPassword());
-            stmt.setString(3, user.getPassword()); // Already hashed
-            stmt.setString(4, user.getRole());
-
+            System.out.println("Registering user with username: " + user.getUsername() + ", role: " + role);
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.println("Error in registerUser: " + e.getMessage());
@@ -60,20 +62,24 @@ public class UserDAO {
                 }
 
                 // 4) Build User object from result set
-                int userId = rs.getInt("user_id");
-                String email = rs.getString("email");
-                String role = rs.getString("role");
-                Timestamp createdAt = rs.getTimestamp("createdAt");
-
-                System.out.println("DAO: authentication successful for user_id=" + userId);
-                return new User(
-                    userId,
+                User user = new User(
+                    rs.getInt("user_id"),
                     rs.getString("username"),
-                    email,
-                    storedHash,
-                    role,
-                    createdAt
+                    rs.getString("email"),
+                    rs.getString("role"),
+                    null,  // Don't pass the password hash
+                    rs.getTimestamp("created_at")
                 );
+                
+                // Handle profile image
+                byte[] imageBytes = rs.getBytes("profile_image");
+                if (imageBytes != null) {
+                    String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+                    user.setProfileImage(base64Image);
+                }
+                
+                System.out.println("DAO: Created user object with role: " + user.getRole());
+                return user;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,23 +89,22 @@ public class UserDAO {
 
 
     
-    public User getUserById(int userId) {
-        String sql = "SELECT * FROM users WHERE userId = ?";
+    public User getUserById(int userId) throws SQLException {
+        String sql = "SELECT * FROM user WHERE user_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, userId);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return extractUser(rs);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return extractUser(rs);
+                }
             }
-        } catch (SQLException e) {
-            System.err.println("Error in getUserById: " + e.getMessage());
         }
         return null;
     }
 
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
-        String sql = "SELECT * FROM users";
+        String sql = "SELECT * FROM user";
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
@@ -111,27 +116,36 @@ public class UserDAO {
         return users;
     }
 
-    public boolean updateUser(User user) {
-        String sql = "UPDATE users SET username=?, email=?, password=?, role=? WHERE userId=?";
+    public boolean updateUser(User user) throws SQLException {
+        String sql = "UPDATE user SET username = ?, email = ?, profile_image = ? WHERE user_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getEmail());
+            if (user.getProfileImage() != null) {
+                byte[] imageBytes = Base64.getDecoder().decode(user.getProfileImage());
+                stmt.setBytes(3, imageBytes);
+            } else {
+                stmt.setNull(3, Types.BLOB);
+            }
+            stmt.setInt(4, user.getUserId());
+            
+            int rowsAffected = stmt.executeUpdate();
+            System.out.println("UserDAO: Rows affected by update: " + rowsAffected);
+            return rowsAffected > 0;
+        }
+    }
 
-            // Hash the password before saving it
-            String hashedPassword = SecurityUtil.hashPassword(user.getPassword());
-            stmt.setString(3, hashedPassword); // Password should be hashed
-            stmt.setString(4, user.getRole());
-            stmt.setInt(5, user.getUserId());
-
+    public boolean updatePassword(int userId, String newPassword) throws SQLException {
+        String query = "UPDATE user SET password = ? WHERE user_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, newPassword);
+            stmt.setInt(2, userId);
             return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.err.println("Error in updateUser: " + e.getMessage());
-            return false;
         }
     }
 
     public boolean deleteUser(int userId) {
-        String sql = "DELETE FROM users WHERE userId = ?";
+        String sql = "DELETE FROM user WHERE user_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, userId);
             return stmt.executeUpdate() > 0;
@@ -141,14 +155,64 @@ public class UserDAO {
         }
     }
 
+    public int getTotalUsers() throws SQLException {
+        String query = "SELECT COUNT(*) FROM user";
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
+        }
+    }
+
     private User extractUser(ResultSet rs) throws SQLException {
-        return new User(
-            rs.getInt("userId"),
+        User user = new User(
+            rs.getInt("user_id"),
             rs.getString("username"),
             rs.getString("email"),
-            rs.getString("password"),
+            null, // Don't include password
             rs.getString("role"),
-            rs.getTimestamp("createdAt")
+            rs.getTimestamp("created_at")
         );
+        // Handle LONGBLOB data
+        byte[] imageBytes = rs.getBytes("profile_image");
+        if (imageBytes != null) {
+            String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+            user.setProfileImage(base64Image);
+        }
+        return user;
     }
+
+    public boolean updateProfileImage(int userId, String profileImage) {
+        String sql = "UPDATE user SET profile_image = ? WHERE user_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            if (profileImage != null) {
+                byte[] imageBytes = Base64.getDecoder().decode(profileImage);
+                stmt.setBytes(1, imageBytes);
+            } else {
+                stmt.setNull(1, Types.BLOB);
+            }
+            stmt.setInt(2, userId);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public String getProfileImage(int userId) {
+        String sql = "SELECT profile_image FROM user WHERE user_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("profile_image");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

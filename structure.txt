@@ -1,0 +1,141 @@
+Folder PATH listing
+Volume serial number is 0CD2-F671
+C:.
+¦   .classpath
+¦   .DS_Store
+¦   .gitignore
+¦   .project
+¦   structure.txt
+¦   
++---.settings
+¦       .jsdtscope
+¦       org.eclipse.core.resources.prefs
+¦       org.eclipse.jdt.core.prefs
+¦       org.eclipse.wst.common.component
+¦       org.eclipse.wst.common.project.facet.core.xml
+¦       org.eclipse.wst.jsdt.ui.superType.container
+¦       org.eclipse.wst.jsdt.ui.superType.name
+¦       
++---build
+¦   +---classes
+¦       +---controller
+¦       ¦   ¦   AdminDashboardServlet.class
+¦       ¦   ¦   AdminMoviesServlet.class
+¦       ¦   ¦   AdminPanelServlet.class
+¦       ¦   ¦   AnalyticsServlet.class
+¦       ¦   ¦   LoginServlet.class
+¦       ¦   ¦   MovieDetailServlet.class
+¦       ¦   ¦   MovieListServlet.class
+¦       ¦   ¦   MovieServlet.class
+¦       ¦   ¦   ProfileServlet.class
+¦       ¦   ¦   RegisterServlet.class
+¦       ¦   ¦   ReviewsServlet.class
+¦       ¦   ¦   UsersServlet.class
+¦       ¦   ¦   
+¦       ¦   +---admin
+¦       +---dao
+¦       ¦       GenreDAO.class
+¦       ¦       MovieDAO.class
+¦       ¦       ReviewDAO.class
+¦       ¦       UserDAO.class
+¦       ¦       
+¦       +---listener
+¦       ¦       DatabaseConnectionListener.class
+¦       ¦       
+¦       +---model
+¦       ¦       Genre.class
+¦       ¦       Movie.class
+¦       ¦       Review.class
+¦       ¦       User.class
+¦       ¦       
+¦       +---util
+¦               DbConnectionUtil.class
+¦               SecurityUtil.class
+¦               
++---database
+¦       schema.sql
+¦       
++---src
+    ¦   .DS_Store
+    ¦   
+    +---main
+        ¦   .DS_Store
+        ¦   
+        +---java
+        ¦   +---controller
+        ¦   ¦   ¦   AdminDashboardServlet.java
+        ¦   ¦   ¦   AdminMoviesServlet.java
+        ¦   ¦   ¦   AdminPanelServlet.java
+        ¦   ¦   ¦   AnalyticsServlet.java
+        ¦   ¦   ¦   LoginServlet.java
+        ¦   ¦   ¦   MovieDetailServlet.java
+        ¦   ¦   ¦   MovieListServlet.java
+        ¦   ¦   ¦   MovieServlet.java
+        ¦   ¦   ¦   ProfileServlet.java
+        ¦   ¦   ¦   RegisterServlet.java
+        ¦   ¦   ¦   ReviewsServlet.java
+        ¦   ¦   ¦   UsersServlet.java
+        ¦   ¦   ¦   
+        ¦   ¦   +---admin
+        ¦   +---dao
+        ¦   ¦       GenreDAO.java
+        ¦   ¦       MovieDAO.java
+        ¦   ¦       ReviewDAO.java
+        ¦   ¦       UserDAO.java
+        ¦   ¦       
+        ¦   +---listener
+        ¦   ¦       DatabaseConnectionListener.java
+        ¦   ¦       
+        ¦   +---model
+        ¦   ¦       Genre.java
+        ¦   ¦       Movie.java
+        ¦   ¦       Review.java
+        ¦   ¦       User.java
+        ¦   ¦       
+        ¦   +---util
+        ¦           DbConnectionUtil.java
+        ¦           SecurityUtil.java
+        ¦           
+        +---webapp
+            +---css
+            ¦       admin.css
+            ¦       main.css
+            ¦       responsive.css
+            ¦       
+            +---js
+            ¦       admin.js
+            ¦       main.js
+            ¦       movie_filter.js
+            ¦       
+            +---META-INF
+            ¦       MANIFEST.MF
+            ¦       
+            +---view
+            ¦   ¦   about.jsp
+            ¦   ¦   contact.jsp
+            ¦   ¦   dashboard.jsp
+            ¦   ¦   landing.jsp
+            ¦   ¦   login.jsp
+            ¦   ¦   Movies.jsp
+            ¦   ¦   movie_detail.jsp
+            ¦   ¦   movie_list.jsp
+            ¦   ¦   profile.jsp
+            ¦   ¦   register.jsp
+            ¦   ¦   
+            ¦   +---admin
+            ¦           admin_movie_form.jsp
+            ¦           admin_panel.jsp
+            ¦           analytics.jsp
+            ¦           movies.jsp
+            ¦           reviews.jsp
+            ¦           users.jsp
+            ¦           
+            +---WEB-INF
+                ¦   web.xml
+                ¦   
+                +---lib
+                        jakarta.servlet-api-6.1.0-M2.jar
+                        jakarta.servlet.jsp.jstl-3.0.1.jar
+                        jakarta.servlet.jsp.jstl-api-3.0.2.jar
+                        mysql-connector-j-9.2.0.jar
+                        

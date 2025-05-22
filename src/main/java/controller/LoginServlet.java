@@ -1,12 +1,12 @@
 package controller;
 
-import dao.UserDAO;
-import model.User;
-import Utils.DbConnectionUtil;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+
+import dao.UserDAO;
+import model.User;
+import util.DbConnectionUtil;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,49 +18,56 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        Connection conn = DbConnectionUtil.getConnection();
-        if (conn == null) {
-            throw new ServletException("DB connection failed");
+        Connection connection = DbConnectionUtil.getConnection();
+        if (connection == null) {
+            throw new ServletException("Failed to establish DB connection.");
         }
-        userDAO = new UserDAO(conn);
+        userDAO = new UserDAO(connection);
     }
 
-   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
+        String username = request.getParameter("username"); // Use "username" or "email" based on your form
+        String password = request.getParameter("password");
 
-        String username = request.getParameter("username");
-        String plainPassword = request.getParameter("password");
-        String rememberMe = request.getParameter("remember");
+        try {
+            User user = userDAO.authenticateUser(username, password);
 
-        System.out.println("Login attempt for username: " + username);
+            if (user != null) {
+                // Store user info in session
+                HttpSession session = request.getSession();
+                System.out.println("LoginServlet: Creating new session: " + session.getId());
+                
+                session.setAttribute("userId", user.getUserId());
+                session.setAttribute("username", user.getUsername());
+                session.setAttribute("user", user);
 
-        User user = userDAO.authenticateUser(username, plainPassword);
+                System.out.println("LoginServlet: Session attributes set -");
+                System.out.println("  userId: " + session.getAttribute("userId"));
+                System.out.println("  username: " + session.getAttribute("username"));
+                System.out.println("  user object: " + session.getAttribute("user"));
 
-        if (user != null) {
-            // Put user in session
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
-
-            // Remember-Me cookie
-            Cookie cookie = new Cookie("username", (rememberMe != null ? username : ""));
-            cookie.setPath("/");
-            cookie.setMaxAge(rememberMe != null ? (60 * 60 * 24 * 30) : 0);
-            response.addCookie(cookie);
-
-            // Redirect based on role
-            String role = user.getRole(); // Ensure `getRole()` exists in your User model
-            if ("Admin".equalsIgnoreCase(role)) {
-                response.sendRedirect("view/admin_panel.jsp");
+                // Set session timeout to 30 minutes
+                session.setMaxInactiveInterval(30 * 60);
+                
+                // Redirect based on user role
+                if ("Admin".equalsIgnoreCase(user.getRole())) {
+                    System.out.println("LoginServlet: Redirecting admin user to admin panel");
+                    response.sendRedirect(request.getContextPath() + "/admin/panel");
+                } else {
+                    System.out.println("LoginServlet: Redirecting regular user to dashboard");
+                    response.sendRedirect(request.getContextPath() + "/view/dashboard.jsp");
+                }
             } else {
-                response.sendRedirect("view/dashboard.jsp");
+                // Login failed: back to login page with error
+                request.setAttribute("errorMessage", "Invalid username or password");
+                request.getRequestDispatcher("view/login.jsp").forward(request, response);
             }
-
-        } else {
-            // Login failed
-            request.setAttribute("errorMessage", "Invalid username or password.");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Login failed: " + e.getMessage());
+            request.getRequestDispatcher("view/error.jsp").forward(request, response);
         }
     }
 }

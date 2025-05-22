@@ -114,8 +114,8 @@
       Your ultimate destination for discovering, reviewing, and tracking the latest and greatest movies. Join our community of film lovers and explore curated collections, honest reviews, and more.
     </p>
     <div class="button-group">
-      <a href="login.jsp" class="btn-link">Login</a>
-      <a href="register.jsp" class="btn-link">Register</a>
+      <a href="view/login.jsp" class="btn-link">Login</a>
+      <a href="view/register.jsp" class="btn-link">Register</a>
     </div>
   </div>
 </body>

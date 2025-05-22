@@ -1,3 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    // Check if user is logged in and is an admin
+    if (session.getAttribute("user") == null || !"Admin".equalsIgnoreCase(((model.User)session.getAttribute("user")).getRole())) {
+        response.sendRedirect(request.getContextPath() + "/view/login.jsp");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -208,18 +217,18 @@
   <header>
     <div class="logo">FilmFanatic</div>
     <nav>
-      <a href="admin_panel.jsp">Dashboard</a>
-      <a href="#">Logout</a>
+      <a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a>
+      <a href="${pageContext.request.contextPath}/view/logout.jsp">Logout</a>
     </nav>
   </header>
 
   <div class="dashboard">
     <aside class="sidebar">
       <ul>
-        <li><a href="Users.jsp">Users</a></li>
-        <li><a href="Movies.jsp">Movies</a></li>
-        <li><a href="Reviews.jsp">Reviews</a></li>
-        <li><a href="Analytics.jsp">Analytics</a></li>
+        <li><a href="${pageContext.request.contextPath}/UsersServlet">Users</a></li>
+        <li><a href="${pageContext.request.contextPath}/AdminMoviesServlet">Movies</a></li>
+        <li><a href="${pageContext.request.contextPath}/ReviewsServlet">Reviews</a></li>
+        <li><a href="${pageContext.request.contextPath}/AnalyticsServlet">Analytics</a></li>
       </ul>
     </aside>
 

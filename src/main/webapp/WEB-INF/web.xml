@@ -7,31 +7,14 @@
 
   <display-name>FilmFanatic</display-name>
 
+  <!-- Database Connection Listener -->
+  <listener>
+    <listener-class>listener.DatabaseConnectionListener</listener-class>
+  </listener>
+
   <!-- Welcome file list -->
   <welcome-file-list>
     <welcome-file>view/landing.jsp</welcome-file> <!-- Set login.jsp as default page -->
   </welcome-file-list>
-
-  <!-- RegisterServlet Configuration -->
-  <servlet>
-    <servlet-name>RegisterServlet</servlet-name>
-    <servlet-class>controller.RegisterServlet</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>RegisterServlet</servlet-name>
-    <url-pattern>/register</url-pattern> <!-- Updated URL pattern for register servlet -->
-  </servlet-mapping>
-
-  <!-- LoginServlet Configuration (If needed) -->
-  <servlet>
-    <servlet-name>LoginServlet</servlet-name>
-    <servlet-class>controller.LoginServlet</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>LoginServlet</servlet-name>
-    <url-pattern>/login</url-pattern> <!-- Updated URL pattern for login servlet -->
-  </servlet-mapping>
 
 </web-app>

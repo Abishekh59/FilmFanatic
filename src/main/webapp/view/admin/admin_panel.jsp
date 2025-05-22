@@ -1,3 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    // Check if user is logged in and is an admin
+    if (session.getAttribute("user") == null || !"Admin".equalsIgnoreCase(((model.User)session.getAttribute("user")).getRole())) {
+        response.sendRedirect(request.getContextPath() + "/view/login.jsp");
+        return;
+    }
+    
+    // Get user info from session
+    model.User user = (model.User)session.getAttribute("user");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,17 +45,24 @@
       font-weight: bold;
     }
 
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
     nav a {
       color: #fff;
-      margin-left: 1.5rem;
       text-decoration: none;
     }
 
-    nav input[type="text"] {
-      padding: 0.5rem;
-      border-radius: 4px;
-      border: none;
-      margin-left: 1.5rem;
+    nav a:hover {
+      color: #00bfff;
+    }
+
+    .user-info {
+      color: #00bfff;
+      margin-right: 1rem;
     }
 
     .dashboard {
@@ -162,18 +181,19 @@
     <header>
     <div class="logo">FilmFanatic</div>
     <nav>
-      <a href="admin_panel.jsp">Dashboard</a>
-      <a href="#">Logout</a>
+      <span class="user-info">Welcome, ${user.username}</span>
+      <a href="${pageContext.request.contextPath}/admin/panel">Dashboard</a>
+      <a href="${pageContext.request.contextPath}/view/logout.jsp">Logout</a>
     </nav>
   </header>
 
   <div class="dashboard">
     <aside class="sidebar">
       <ul>
-        <li><a href="${pageContext.request.contextPath}/GetAllUser">Users</a></li>
-        <li><a href="Movies.jsp">Movies</a></li>
-        <li><a href="Reviews.jsp">Reviews</a></li>
-        <li><a href="Analytics.jsp">Analytics</a></li>
+        <li><a href="${pageContext.request.contextPath}/admin/users">Users</a></li>
+        <li><a href="${pageContext.request.contextPath}/admin/movies">Movies</a></li>
+        <li><a href="${pageContext.request.contextPath}/admin/reviews">Reviews</a></li>
+        <li><a href="${pageContext.request.contextPath}/admin/analytics">Analytics</a></li>
       </ul>
     </aside>
 
@@ -185,21 +205,18 @@
       <div class="analytics-container">
         <div class="card">
           <h3>Total Users</h3>
-          <p>1,234</p>
+          <p>${totalUsers}</p>
         </div>
         <div class="card">
           <h3>Total Movies</h3>
-          <p>567</p>
+          <p>${totalMovies}</p>
         </div>
         <div class="card">
           <h3>Total Reviews</h3>
-          <p>2,345</p>
+          <p>${totalReviews}</p>
         </div>
       </div>
 
-      <div class="placeholder-chart">
-        [ Chart Area - Add with JS or Image if needed ]
-      </div>
     </main>
   </div>
 </body>

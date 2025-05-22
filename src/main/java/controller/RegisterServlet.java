@@ -1,9 +1,9 @@
 package controller;
 
-import Utils.SecurityUtil;
+import util.SecurityUtil;
 import dao.UserDAO;
 import model.User;
-import Utils.DbConnectionUtil;
+import util.DbConnectionUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -38,19 +38,20 @@ public class RegisterServlet extends HttpServlet {
         try {
             System.out.println("Received user registration request");
 
-            int userId = Integer.parseInt(request.getParameter("userId"));
+            // Don't parse userId as it's auto-generated
             String username = request.getParameter("username");
             String email = request.getParameter("email");
             String plainPassword = request.getParameter("password");
-            String role = request.getParameter("role");
+            String role = "User"; // Default role is User
 
-            System.out.println("User Input - ID: " + userId + ", Username: " + username + ", Email: " + email + ", Role: " + role);
+            System.out.println("User Input - Username: " + username + ", Email: " + email + ", Role: " + role);
 
             // Hash the password before storing
             String hashedPassword = SecurityUtil.hashPassword(plainPassword);
             System.out.println("Hashed Password: " + hashedPassword);
 
-            User user = new User(userId, username, email, hashedPassword, role, new Timestamp(System.currentTimeMillis()));
+            // Create user with role set to "User"
+            User user = new User(0, username, email, role, hashedPassword, new Timestamp(System.currentTimeMillis()));
 
             boolean registered = userDAO.registerUser(user);
 

@@ -257,66 +257,75 @@
     </div>
 
     <div class="section">
-        <h2>Trending Now</h2>
+        <h2>Start Here</h2>
         <div class="movie-grid">
         <div class="movie-card">
-            <img src="https://image.tmdb.org/t/p/w500/hkxxMIGaiCTmrEArK7J56JTKUlB.jpg" alt="Godzilla x Kong: The New Empire">
+            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/source/e74d64166893859.6420464bd16b5.png" alt="In the Mood for Love">
             <div class="info">
-                <h4>Godzilla x Kong</h4>
-                <p>Action | 2024</p>
+                <h4>In the Mood for Love</h4>
+                <p>Drama | 2000</p>
             </div>
         </div>
         <div class="movie-card">
-            <img src="https://image.tmdb.org/t/p/w500/czembW0Rk1Ke7lCJGahbOhdCuhV.jpg" alt="Kung Fu Panda 4">
+            <img src="https://m.media-amazon.com/images/M/MV5BZGI4YmVhMzMtMWExMS00MGZiLTg2MmItM2I2MWZjODAyM2U5XkEyXkFqcGc@._V1_.jpg" alt="The Deer Hunter">
             <div class="info">
-                <h4>Dune</h4>
-                <p>Sci-Fi | 2024</p>
+                <h4>The Deer Hunter</h4>
+                <p>Drama | 1978</p>
             </div>
         </div>
-        <div class="movie-card Action">
-    <img src="https://image.tmdb.org/t/p/w500/z8CExJekGrEThbpMXAmCFvvgoJR.jpg" alt="Army of the Dead">
-    <div class="info">
-        <h4>Army of the Dead</h4>
-        <p>Action | 2021</p>
+        <div class="movie-card">
+            <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p89594_p_v8_ag.jpg" alt="Memories of Murder">
+            <div class="info">
+                <h4>Memories of Murder</h4>
+                <p>Crime | 2003</p>
+            </div>
+        </div>
+        <div class="movie-card">
+            <img src="https://m.media-amazon.com/images/M/MV5BYTc3NTM1ZmQtNGI3YS00Y2JhLThiMWEtY2QxYTU3N2ZiNjNkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Dear Zachary">
+            <div class="info">
+                <h4>Dear Zachary</h4>
+                <p>Documentary | 2008</p>
+            </div>
+        </div>
+        <div class="movie-card">
+            <img src="https://m.media-amazon.com/images/M/MV5BYTViYTE3ZGQtNDBlMC00ZTAyLTkyODMtZGRiZDg0MjA2YThkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Pulp Fiction">
+            <div class="info">
+                <h4>Pulp Fiction</h4>
+                <p>Crime | 1994</p>
+            </div>
+        </div>
+        <div class="movie-card">
+            <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p10193521_p_v8_ap.jpg" alt="The Lunchbox">
+            <div class="info">
+                <h4>The Lunchbox</h4>
+                <p>Drama | 2013</p>
+            </div>
+        </div>
+        <div class="movie-card">
+            <img src="https://m.media-amazon.com/images/M/MV5BNGVmODFkM2MtOTEzMy00MjFjLThjZmYtODMxZmI1MzcyNDkyXkEyXkFqcGc@._V1_.jpg" alt="Perfect Days">
+            <div class="info">
+                <h4>Perfect Days</h4>
+                <p>Drama | 2023</p>
+            </div>
+        </div>
+        <div class="movie-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj4IDPc3qSIGyaz8NIfj9JJ6Z6kctNvGiqyQ&s" alt="Pan's Labyrinth">
+            <div class="info">
+                <h4>Pan's Labyrinth</h4>
+                <p>Fantasy | 2006</p>
+            </div>
+        </div>
+        <div class="movie-card">
+            <img src="https://resizing.flixster.com/I9-WlAn_jD3A0nRxpoxY7BNRoKk=/ems.cHJkLWVtcy1hc3NldHMvdHZzZWFzb24vZjJmZWI2YzAtNjMzMy00NDk4LWFkZmYtYTQ0Yzg4YTBjMjc0LmpwZw==" alt="City of God">
+            <div class="info">
+                <h4>City of God</h4>
+                <p>Crime | 2002</p>
+            </div>
+        </div>
+        
+
     </div>
 </div>
-        <div class="movie-card">
-            <img src="https://image.tmdb.org/t/p/w500/iADOJ8Zymht2JPMoy3R7xceZprc.jpg" alt="Furious:A mad max sage">
-            <div class="info">
-                <h4>Furious:A mad max sage</h4>
-                <p>Thriller | 2024</p>
-            </div>
-        </div>
-        <div class="movie-card">
-            <img src="https://image.tmdb.org/t/p/w500/9PqD3wSIjntyJDBzMNuxuKHwpUD.jpg" alt="Migration">
-            <div class="info">
-                <h4>Migration</h4>
-                <p>Animation | 2023</p>
-            </div>
-        </div>
-        <div class="movie-card">
-            <img src="https://image.tmdb.org/t/p/w500/bXi6IQiQDHD00JFio5ZSZOeRSBh.jpg" alt="Road House">
-            <div class="info">
-                <h4>Road House</h4>
-                <p>Thriller | 2024</p>
-            </div>
-        </div>
-        <div class="movie-card Drama">
-    <img src="https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg" alt="The Shawshank Redemption">
-    <div class="info">
-        <h4>The Shawshank Redemption</h4>
-        <p>Drama | 1994</p>
-    </div>
-</div>
-        <div class="movie-card SciFi">
-    <img src="https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg" alt="Avengers: Endgame">
-    <div class="info">
-        <h4>Avengers: Endgame</h4>
-        <p>Sci-Fi | 2019</p>
-    </div>
-</div>
-        </div>
-    </div>
 
     <footer>
     <div class="footer-col">
@@ -351,7 +360,7 @@
   </footer>
 
   <div class="copyright">
-    © 2025 FilmFanatic. All Rights Reserved.
+    ï¿½ 2025 FilmFanatic. All Rights Reserved.
   </div>
 
 

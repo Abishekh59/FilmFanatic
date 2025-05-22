@@ -1,3 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    // Redirect to servlet if no movies are found
+    if (request.getAttribute("movies") == null) {
+        response.sendRedirect(request.getContextPath() + "/view/movielist");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -189,7 +199,7 @@
 
             const cards = document.querySelectorAll('.movie-card');
             cards.forEach(card => {
-                if (category === 'All' || card.classList.contains(category)) {
+                if (category === 'All' || card.getAttribute('data-genre') === category) {
                     card.style.display = 'block';
                 } else {
                     card.style.display = 'none';
@@ -222,14 +232,14 @@
     </div>
     <nav>
         <a href="dashboard.jsp">Home</a>
-        <a href="movie_list.jsp">Movies</a>
+        <a href="${pageContext.request.contextPath}/view/movielist">Movies</a>
         <a href="about.jsp">About</a>
         <a href="contact.jsp">Contact</a> 
         <input type="text" class="search-bar" placeholder="Search Movies..." oninput="searchMovies()">
     </nav>
     <div class="actions">
-            <a href="profile.jsp" class="profile">Profile</a>
-            <a href="logout.jsp" class="logout">
+            <a href="${pageContext.request.contextPath}/profile" class="profile">Profile</a>
+            <a href="${pageContext.request.contextPath}/view/logout.jsp" class="logout">
                 <img src="https://img.icons8.com/material-rounded/24/ffffff/exit.png" alt="Logout Icon"
                     style="vertical-align: middle; margin-right: 5px;" />
                 Logout
@@ -239,206 +249,28 @@
 
 <div class="filter-bar">
     <button class="filter-btn active" id="All" onclick="filterMovies('All')">All</button>
-    <button class="filter-btn" id="Action" onclick="filterMovies('Action')">Action</button>
-    <button class="filter-btn" id="Drama" onclick="filterMovies('Drama')">Drama</button>
-    <button class="filter-btn" id="SciFi" onclick="filterMovies('SciFi')">Sci-Fi</button>
-    <button class="filter-btn" id="Comedy" onclick="filterMovies('Comedy')">Comedy</button>
-    <button class="filter-btn" id="Thriller" onclick="filterMovies('Thriller')">Thriller</button>
+    <c:forEach items="${genres}" var="genre">
+        <button class="filter-btn" id="${genre.name}" onclick="filterMovies('${genre.name}')">${genre.name}</button>
+    </c:forEach>
 </div>
 
 <div class="movie-grid">
-   <div class="movie-card Anime">
-    <img src="https://image.tmdb.org/t/p/w500/q719jXXEzOoYaps6babgKnONONX.jpg" alt="Your Name">
-    <div class="info">
-        <h4><a href="movie_detail.jsp">Your name</a> </h4>
-        <p>Anime | 2016</p>
-    </div>
-</div>
-<div class="movie-card Action">
-    <img src="https://image.tmdb.org/t/p/w500/z8CExJekGrEThbpMXAmCFvvgoJR.jpg" alt="Army of the Dead">
-    <div class="info">
-        <h4>Army of the Dead</h4>
-        <p>Action | 2021</p>
-    </div>
-</div>
-
-<div class="movie-card Action">
-    <img src="https://image.tmdb.org/t/p/w500/aSdp2uS0jWkqdhCeyhJuCoiLZji.jpg" alt="Top Gun: Maverick">
-    <div class="info">
-        <h4>Top Gun: Maverick</h4>
-        <p>Action | 2022</p>
-    </div>
-</div>
-<div class="movie-card">
-            <img src="https://image.tmdb.org/t/p/w500/hkxxMIGaiCTmrEArK7J56JTKUlB.jpg" alt="Godzilla x Kong: The New Empire">
+    <c:forEach items="${movies}" var="movie">
+        <div class="movie-card" data-genre="${movie.genreName}">
+            <c:choose>
+                <c:when test="${not empty movie.imageBase64}">
+                    <img src="data:image/jpeg;base64,${movie.imageBase64}" alt="${movie.title}">
+                </c:when>
+                <c:otherwise>
+                    <img src="${pageContext.request.contextPath}/images/default-movie.png" alt="Default Movie Image">
+                </c:otherwise>
+            </c:choose>
             <div class="info">
-                <h4>Godzilla x Kong</h4>
-                <p>Action | 2024</p>
+                <h4><a href="${pageContext.request.contextPath}/movie/${movie.movieId}">${movie.title}</a></h4>
+                <p>${movie.genreName} | ${movie.releaseDate}</p>
             </div>
-        </div>     
-
-<div class="movie-card Action">
-    <img src="https://image.tmdb.org/t/p/w500/r7XifzvtezNt31ypvsmb6Oqxw49.jpg" alt="DC League of Super-Pets">
-    <div class="info">
-        <h4>DC League of Super-Pets</h4>
-        <p>Action | 2022</p>
-    </div>
-</div>
-
-
-<!-- Drama -->
-<div class="movie-card Drama">
-    <img src="https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg" alt="Joker">
-    <div class="info">
-        <h4>Joker</h4>
-        <p>Drama | 2019</p>
-    </div>
-</div>
-<div class="movie-card Drama">
-    <img src="https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg" alt="The Shawshank Redemption">
-    <div class="info">
-        <h4>The Shawshank Redemption</h4>
-        <p>Drama | 1994</p>
-    </div>
-</div>
-<div class="movie-card Drama">
-    <img src="https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1fZdja1.jpg" alt="The Godfather">
-    <div class="info">
-        <h4>The Godfather</h4>
-        <p>Drama | 1972</p>
-    </div>
-</div>
-<div class="movie-card Drama">
-    <img src="https://image.tmdb.org/t/p/w500/6b7swg6DLqXCO3XUsMnv6RwDMW2.jpg" alt="After Ever Happy">
-    <div class="info">
-        <h4>After Ever Happy</h4>
-        <p>Drama | 2022</p>
-    </div>
-</div>
-
-
-<div class="movie-card Drama">
-    <img src="https://image.tmdb.org/t/p/w500/6FfCtAuVAW8XJjZ7eWeLibRLWTw.jpg" alt="Star Wars">
-    <div class="info">
-        <h4>Star Wars: Episode IV - A New Hope</h4>
-        <p>Drama | 1977</p>
-    </div>
-</div>
-
-
-<!-- Sci-Fi -->
-<div class="movie-card SciFi">
-    <img src="https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg" alt="Avengers: Endgame">
-    <div class="info">
-        <h4>Avengers: Endgame</h4>
-        <p>Sci-Fi | 2019</p>
-    </div>
-</div>
-
-<div class="movie-card SciFi">
-    <img src="https://image.tmdb.org/t/p/w500/nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg" alt="Interstellar">
-    <div class="info">
-        <h4>Interstellar</h4>
-        <p>Sci-Fi | 2014</p>
-    </div>
-</div>
-<div class="movie-card SciFi">
-    <img src="https://image.tmdb.org/t/p/w500/x2FJsf1ElAgr63Y3PNPtJrcmpoe.jpg" alt="The Matrix">
-    <div class="info">
-        <h4>The Matrix</h4>
-        <p>Sci-Fi | 1999</p>
-    </div>
-</div>
-
-<!-- Comedy -->
-<div class="movie-card Comedy">
-    <img src="https://image.tmdb.org/t/p/w500/e1mjopzAS2KNsvpbpahQ1a6SkSn.jpg" alt="Deadpool">
-    <div class="info">
-        <h4>Deadpool</h4>
-        <p>Comedy | 2016</p>
-    </div>
-</div>
-<div class="movie-card Comedy">
-    <img src="https://image.tmdb.org/t/p/w500/4o2BKoKTt0tDs2H6fJwA2jzSjaS.jpg" alt="The Hangover">
-    <div class="info">
-        <h4>The Hangover</h4>
-        <p>Comedy | 2009</p>
-    </div>
-</div>
-
-<!-- Thriller -->
-<div class="movie-card Thriller">
-    <img src="https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg" alt="John Wick 4">
-    <div class="info">
-        <h4>John Wick 4</h4>
-        <p>Thriller | 2023</p>
-    </div>
-</div>
-<div class="movie-card Thriller">
-    <img src="https://image.tmdb.org/t/p/w500/mfnkSeeVOBVheuyn2lo4tfmOPQb.jpg" alt="Gone Girl">
-    <div class="info">
-        <h4>Gone Girl</h4>
-        <p>Thriller | 2014</p>
-    </div>
-</div>
-<!-- Action -->
-<div class="movie-card Action">
-    <img src="https://image.tmdb.org/t/p/w500/vlgn4kNlVR9XbjX0Tq8XW5NkGg.jpg" alt="Spider-Man: No Way Home">
-    <div class="info">
-        <h4>Spider-Man: No Way Home</h4>
-        <p>Action | 2021</p>
-    </div>
-</div>
-<div class="movie-card Action">
-    <img src="https://image.tmdb.org/t/p/w500/7Xzmx5Bb03gAzZDNzshPzRrRaWy.jpg" alt="Furious 7">
-    <div class="info">
-        <h4>Furious 7</h4>
-        <p>Action | 2015</p>
-    </div>
-</div>
-
-<!-- Drama -->
-<div class="movie-card Drama">
-    <img src="https://image.tmdb.org/t/p/w500/6Zgcfjqv6a7SYycvdCsbT2gUpUg.jpg" alt="The Pursuit of Happyness">
-    <div class="info">
-        <h4>The Pursuit of Happyness</h4>
-        <p>Drama | 2006</p>
-    </div>
-</div>
-<div class="movie-card Drama">
-    <img src="https://image.tmdb.org/t/p/w500/rsEhdXyI4auLs1v5rBv9UV4wqie.jpg" alt="A Beautiful Mind">
-    <div class="info">
-        <h4>A Beautiful Mind</h4>
-        <p>Drama | 2001</p>
-    </div>
-</div>
-
-<!-- Sci-Fi -->
-<div class="movie-card SciFi">
-    <img src="https://image.tmdb.org/t/p/w500/l3bNd15j4nre6J4vZjcxV6va0Wj.jpg" alt="Blade Runner 2049">
-    <div class="info">
-        <h4>Blade Runner 2049</h4>
-        <p>Sci-Fi | 2017</p>
-    </div>
-</div>
-
-<!-- Comedy -->
-<div class="movie-card Comedy">
-    <img src="https://image.tmdb.org/t/p/w500/k6Su8kZ1nQGpOlxaIoY5pHoI2cm.jpg" alt="The Grand Budapest Hotel">
-    <div class="info">
-        <h4>The Grand Budapest Hotel</h4>
-        <p>Comedy | 2014</p>
-    </div>
-</div>
-
-<!-- Thriller -->
-<div class="movie-card Thriller">
-    <img src="https://image.tmdb.org/t/p/w500/4j7WmYeMxxlTbF9cUzjLLO7WGHl.jpg" alt="Shutter Island">
-    <div class="info">
-        <h4>Shutter Island</h4>
-        <p>Thriller | 2010</p>
-    </div>
-</div>
+        </div>
+    </c:forEach>
 </div>
 
  <footer>
@@ -474,7 +306,7 @@
   </footer>
 
   <div class="copyright">
-    © 2025 FilmFanatic. All Rights Reserved.
+    ï¿½ 2025 FilmFanatic. All Rights Reserved.
   </div>
 </body>
 </html>

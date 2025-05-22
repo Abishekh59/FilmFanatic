@@ -1,3 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    // Check if user is logged in and is an admin
+    if (session.getAttribute("user") == null || !"Admin".equalsIgnoreCase(((model.User)session.getAttribute("user")).getRole())) {
+        response.sendRedirect(request.getContextPath() + "/view/admin/login.jsp");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -128,22 +137,20 @@
       margin-bottom: 1rem;
     }
 
-    .chart {
-  background-color: #2e2f3e;
-  padding: 1.5rem;
-  border-radius: 10px;
-  height: 700px; 
-  margin-top: 1rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  max-width: 48%; 
-  flex: 1; 
-  min-width: 300px;
-}
-
-    .chart canvas {
-      width: 100% !important;
-      height: 100% !important;
+    .chart-container {
+      background-color: #2e2f3e;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-top: 2rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
+
+    .chart-container canvas {
+      width: 100% !important;
+      height: 400px !important;
+    }
+
+    /* Remove chart styles */
 </style>
   
 </head>
@@ -152,18 +159,18 @@
   <header>
     <div class="logo">FilmFanatic</div>
     <nav>
-      <a href="admin_panel.jsp">Dashboard</a>
-      <a href="#">Logout</a>
+      <a href="${pageContext.request.contextPath}/admin/panel">Dashboard</a>
+      <a href="${pageContext.request.contextPath}/view/logout.jsp">Logout</a>
     </nav>
   </header>
 
   <div class="dashboard">
     <aside class="sidebar">
       <ul>
-        <li><a href="Users.jsp">Users</a></li>
-        <li><a href="Movies.jsp">Movies</a></li>
-        <li><a href="Reviews.jsp">Reviews</a></li>
-        <li><a href="Analytics.jsp">Analytics</a></li>
+        <li><a href="${pageContext.request.contextPath}/admin/users">Users</a></li>
+        <li><a href="${pageContext.request.contextPath}/admin/movies">Movies</a></li>
+        <li><a href="${pageContext.request.contextPath}/admin/reviews">Reviews</a></li>
+        <li><a href="${pageContext.request.contextPath}/admin/analytics">Analytics</a></li>
       </ul>
     </aside>
 
@@ -176,28 +183,22 @@
         <div class="analytics-container">
           <div class="card">
             <h3>Total Users</h3>
-            <p>1,234</p>
+            <p>${totalUsers}</p>
           </div>
 
           <div class="card">
             <h3>Total Movies</h3>
-            <p>567</p>
+            <p>${totalMovies}</p>
           </div>
 
           <div class="card">
             <h3>Total Reviews</h3>
-            <p>2,345</p>
+            <p>${totalReviews}</p>
           </div>
         </div>
 
-        <div class="analytics-container">
-          <div class="chart">
-            <canvas id="moviesChart"></canvas>
-          </div>
-
-          <div class="chart">
-            <canvas id="genreChart"></canvas>
-          </div>
+        <div class="chart-container">
+          <canvas id="analyticsChart"></canvas>
         </div>
       </section>
     </main>
@@ -206,16 +207,25 @@
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    // Movies Chart - Bar Version
-    const ctx = document.getElementById('moviesChart').getContext('2d');
-    const moviesChart = new Chart(ctx, {
+    // Get the data from the server
+    const totalUsers = ${totalUsers};
+    const totalMovies = ${totalMovies};
+    const totalReviews = ${totalReviews};
+
+    // Create the chart
+    const ctx = document.getElementById('analyticsChart').getContext('2d');
+    const analyticsChart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        labels: ['Users', 'Movies', 'Reviews'],
         datasets: [{
-          label: 'Movies Added',
-          data: [12, 19, 3, 5, 2, 3, 7],
-          backgroundColor: '#00bfff',
+          label: 'Total Count',
+          data: [totalUsers, totalMovies, totalReviews],
+          backgroundColor: [
+            '#00bfff',  // Blue for Users
+            '#ff6b6b',  // Red for Movies
+            '#7fffd4'   // Teal for Reviews
+          ],
           borderRadius: 6,
           borderSkipped: false,
           barPercentage: 0.6,
@@ -223,9 +233,19 @@
         }]
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             display: false
+          },
+          title: {
+            display: true,
+            text: 'Platform Statistics',
+            color: '#fff',
+            font: {
+              size: 18
+            }
           },
           tooltip: {
             backgroundColor: '#222',
@@ -251,43 +271,6 @@
             ticks: {
               color: '#ccc'
             }
-          }
-        }
-      }
-    });
-
-    // Top Genres Chart - Doughnut Version
-    const ctx2 = document.getElementById('genreChart').getContext('2d');
-    const genreChart = new Chart(ctx2, {
-      type: 'doughnut',
-      data: {
-        labels: ['Action', 'Drama', 'Comedy', 'Horror', 'Sci-Fi'],
-        datasets: [{
-          label: 'Top Genres',
-          data: [300, 200, 100, 50, 75],
-          backgroundColor: [
-            '#ff6b6b', '#6bafff', '#ffe66d', '#7fffd4', '#c084fc'
-          ],
-          borderColor: '#1e1f29',
-          borderWidth: 2
-        }]
-      },
-      options: {
-        cutout: '60%',
-        plugins: {
-          legend: {
-            labels: {
-              color: '#ccc',
-              boxWidth: 16,
-              padding: 20
-            }
-          },
-          tooltip: {
-            backgroundColor: '#222',
-            titleColor: '#fff',
-            bodyColor: '#ccc',
-            borderColor: '#888',
-            borderWidth: 1
           }
         }
       }

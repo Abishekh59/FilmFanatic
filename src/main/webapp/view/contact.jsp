@@ -274,7 +274,7 @@
   </footer>
 
   <div class="copyright">
-    © 2025 FilmFanatic. All Rights Reserved.
+    ï¿½ 2025 FilmFanatic. All Rights Reserved.
   </div>
 
   <script>

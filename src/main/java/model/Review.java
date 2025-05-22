@@ -4,68 +4,89 @@ import java.sql.Timestamp;
 
 public class Review {
     private int reviewId;
-    private int userId;
     private int movieId;
-    private String comment;
+    private int userId;
+    private String username;
+    private String movieTitle;
     private float rating;
+    private String comment;
     private Timestamp reviewDate;
 
-    public Review(int reviewId, int userId, int movieId, String comment, float rating, Timestamp reviewDate) {
-        this.reviewId = reviewId;
-        this.userId = userId;
-        this.movieId = movieId;
-        this.comment = comment;
-        this.rating = rating;
-        this.reviewDate = reviewDate;
+    // Constructors
+    public Review() {
+        // Default constructor
     }
 
-	public int getReviewId() {
-		return reviewId;
-	}
+    public Review(int movieId, int userId, float rating, String comment) {
+        this.movieId = movieId;
+        this.userId = userId;
+        this.rating = rating;
+        this.comment = comment;
+        this.reviewDate = new Timestamp(System.currentTimeMillis());
+    }
 
-	public void setReviewId(int reviewId) {
-		this.reviewId = reviewId;
-	}
+    // Getters and Setters
+    public int getReviewId() {
+        return reviewId;
+    }
 
-	public int getUserId() {
-		return userId;
-	}
+    public void setReviewId(int reviewId) {
+        this.reviewId = reviewId;
+    }
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
+    public int getMovieId() {
+        return movieId;
+    }
 
-	public int getMovieId() {
-		return movieId;
-	}
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
+    }
 
-	public void setMovieId(int movieId) {
-		this.movieId = movieId;
-	}
+    public int getUserId() {
+        return userId;
+    }
 
-	public String getComment() {
-		return comment;
-	}
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public float getRating() {
-		return rating;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setRating(float rating) {
-		this.rating = rating;
-	}
+    public String getMovieTitle() {
+        return movieTitle;
+    }
 
-	public Timestamp getReviewDate() {
-		return reviewDate;
-	}
+    public void setMovieTitle(String movieTitle) {
+        this.movieTitle = movieTitle;
+    }
 
-	public void setReviewDate(Timestamp reviewDate) {
-		this.reviewDate = reviewDate;
-	}
+    public float getRating() {
+        return rating;
+    }
 
-    
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public Timestamp getReviewDate() {
+        return reviewDate;
+    }
+
+    public void setReviewDate(Timestamp reviewDate) {
+        this.reviewDate = reviewDate;
+    }
 }
