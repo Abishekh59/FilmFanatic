@@ -214,6 +214,18 @@
       background-color: #6c757d;
       color: white;
     }
+
+    .profile-image {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .profile-image-cell {
+      width: 70px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -325,6 +337,7 @@
           <thead>
             <tr>
               <th>ID</th>
+              <th>Profile</th>
               <th>Username</th>
               <th>Email</th>
               <th>Role</th>
@@ -333,32 +346,29 @@
             </tr>
           </thead>
           <tbody>
-            <%
-              List<User> userList = (List<User>) request.getAttribute("userList");
-              if (userList != null && !userList.isEmpty()) {
-                for (User user : userList) {
-            %>
+            <c:forEach items="${userList}" var="user">
               <tr>
-                <td><%= user.getUserId() %></td>
-                <td><%= user.getUsername() %></td>
-                <td><%= user.getEmail() %></td>
-                <td><%= user.getRole() %></td>
-                <td><%= user.getCreatedAt() %></td>
+                <td>${user.userId}</td>
+                <td class="profile-image-cell">
+                  <c:choose>
+                    <c:when test="${not empty user.profileImage}">
+                      <img src="data:image/jpeg;base64,${user.profileImage}" alt="${user.username}'s profile" class="profile-image">
+                    </c:when>
+                    <c:otherwise>
+                      <img src="${pageContext.request.contextPath}/assets/default-profile.png" alt="Default profile" class="profile-image">
+                    </c:otherwise>
+                  </c:choose>
+                </td>
+                <td>${user.username}</td>
+                <td>${user.email}</td>
+                <td>${user.role}</td>
+                <td>${user.createdAt}</td>
                 <td class="action-btns">
-                  <button class="edit-btn" onclick="openEditModal('<%= user.getUserId() %>', '<%= user.getUsername() %>', '<%= user.getEmail() %>', '<%= user.getRole() %>')">Edit</button>
-                  <button class="delete-btn" onclick="openDeleteModal('<%= user.getUserId() %>')">Delete</button>
+                  <button class="edit-btn" onclick="openEditModal('${user.userId}', '${user.username}', '${user.email}', '${user.role}')">Edit</button>
+                  <button class="delete-btn" onclick="deleteUser('${user.userId}')">Delete</button>
                 </td>
               </tr>
-            <%
-                }
-              } else {
-            %>
-              <tr>
-                <td colspan="6" style="text-align: center;">No users found</td>
-              </tr>
-            <%
-              }
-            %>
+            </c:forEach>
           </tbody>
         </table>
       </section>
@@ -382,7 +392,7 @@
       openModal('editUserModal');
     }
 
-    function openDeleteModal(userId) {
+    function deleteUser(userId) {
       document.getElementById('deleteUserId').value = userId;
       openModal('deleteUserModal');
     }

@@ -171,7 +171,6 @@ public class UserDAO {
             rs.getInt("user_id"),
             rs.getString("username"),
             rs.getString("email"),
-            null, // Don't include password
             rs.getString("role"),
             rs.getTimestamp("created_at")
         );
